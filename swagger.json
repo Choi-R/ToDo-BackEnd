@@ -1,0 +1,521 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "API documentation for my APP.",
+    "version": "1.0.0",
+    "title": "noce",
+    "termsOfService": "http://swagger.io/terms/",
+    "contact": {
+      "email": "ricky.12genius@gmail.com"
+    }
+  },
+  "host": "https://aneh-sekalian.herokuapp.com",
+  "basePath": "/v2",
+  "tags": [
+    {
+      "name": "User Collection",
+      "description": "INFO for User API"
+    },
+    {
+      "name": "Task Collection",
+      "description": "INFO for Task API"
+    }
+  ],
+  "paths": {
+    "/api/v1/users": {
+      "post": {
+        "tags": [
+          "User Collection"
+        ],
+        "summary": "User Register",
+        "description": "Require name, email, and password",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserRegisterRequest"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Succesfully create User",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "data": {
+                  "type": "string",
+                  "example": "#/definitions/UserRegisterRequest"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "User Collection"
+        ],
+        "summary": "Generate Token For user",
+        "description": "Ask user for email and password, then if it's valid it will generate JWT Token",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserLoginRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Succesfully logged in",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "data": {
+                  "type": "string",
+                  "example": "eInt.jwt.Token"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "User Collection"
+        ],
+        "summary": "API for showing who is the current user.",
+        "description": "To use this API you just need to fill the headers with authorization and fill with token.",
+        "produces": [
+          "application/xml"
+        ],
+        "responses": {
+          "200": {
+            "description": "This is the current user",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "data": {
+                  "type": "string",
+                  "example": "Showing the Current User is"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/users/photo": {
+      "put": {
+        "tags": [
+          "User Collection"
+        ],
+        "summary": "Uploading Photo",
+        "description": "API for Uploading Photo",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "image/png",
+          "image/jpeg"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "upfile",
+            "type": "file"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Succesfully logged in",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "data": {
+                  "type": "string",
+                  "example": "eInt.jwt.Token"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/users/update": {
+      "put": {
+        "tags": [
+          "User Collection"
+        ],
+        "summary": "Update",
+        "description": "You can Update anything",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/UserUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Succesfully update",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "data": {
+                  "type": "string",
+                  "example": "eInt.jwt.Token"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/tasks": {
+      "post": {
+        "tags": [
+          "Task Collection"
+        ],
+        "summary": "Creating Task",
+        "description": "Ask User for name, description and deadLine. importance and completion by default are false.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateTaskRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Succesfully Create Task",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "data": {
+                  "type": "string",
+                  "example": "eInt.jwt.Token"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/tasks?page=&limit=": {
+      "get": {
+        "tags": [
+          "Task Collection"
+        ],
+        "summary": "Get the task in the Current User.",
+        "description": "It will show you all the task. after the = fill what page you want and limit of each page. (must be number). (kalau bingung tanya ya..).",
+        "produces": [
+          "application/xml"
+        ],
+        "responses": {
+          "200": {
+            "description": "This is your all your task",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "data": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/tasks/:_id": {
+      "put": {
+        "tags": [
+          "Task Collection"
+        ],
+        "summary": "Update Task",
+        "description": "require _id of task in the param and to change the value you can request in body (just like update User).",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateTaskRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Succesfully Update Task",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "data": {
+                  "type": "string",
+                  "example": "eInt.jwt.Token"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Task Collection"
+        ],
+        "summary": "Delete task",
+        "description": "require _id of task in the param.",
+        "produces": [
+          "application/xml"
+        ],
+        "responses": {
+          "200": {
+            "description": "Succesfully delete task."
+          }
+        }
+      }
+    },
+    "/api/v1/tasks/findTaskByImportance?page=&limit=": {
+      "get": {
+        "tags": [
+          "Task Collection"
+        ],
+        "summary": "filtering the task by it Importance.",
+        "description": "It will show you the task by importance. after the = fill what page you want and limit of each page. (must be number). (kalau bingung tanya ya..).'",
+        "produces": [
+          "application/xml"
+        ],
+        "responses": {
+          "200": {
+            "description": "This is your all your task filtered by importance.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "data": {
+                  "type": "string",
+                  "example": "eInt.jwt.Token"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/tasks/findTaskByCompletion?page=&limit=": {
+      "get": {
+        "tags": [
+          "Task Collection"
+        ],
+        "summary": "filtering the task by it Completion.",
+        "description": "It will show you the task by Completion. after the = fill what page you want and limit of each page. (must be number). (kalau bingung tanya ya..).'",
+        "produces": [
+          "application/xml"
+        ],
+        "responses": {
+          "200": {
+            "description": "This is your all your task filtered by Completion.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "data": {
+                  "type": "string",
+                  "example": "eInt.jwt.Token"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "UserRegisterRequest": {
+      "type": "object",
+      "required": [
+        "name",
+        "email",
+        "password"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "test"
+        },
+        "email": {
+          "type": "string",
+          "example": "test@gmail.com"
+        },
+        "password": {
+          "type": "string",
+          "example": "123test456"
+        }
+      }
+    },
+    "UserLoginRequest": {
+      "type": "object",
+      "required": [
+        "email",
+        "password"
+      ],
+      "properties": {
+        "email": {
+          "type": "string",
+          "example": "test@gmail.com"
+        },
+        "password": {
+          "type": "string",
+          "example": "123test123"
+        }
+      }
+    },
+    "UserUpdate": {
+      "type": "object",
+      "required": [
+        "name",
+        "email",
+        "password"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "SiGanteng",
+          "description": "name Value will change into SiGanteng. You can Change multiple at once."
+        }
+      }
+    },
+    "CreateTaskRequest": {
+      "type": "object",
+      "required": [
+        "name",
+        "description",
+        "deadLine",
+        "importance",
+        "completion",
+        "owner"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "kerja"
+        },
+        "description": {
+          "type": "string",
+          "example": "kerjaan belum kelar"
+        },
+        "deadLine": {
+          "type": "integer",
+          "example": "12-12-12"
+        },
+        "owner": {
+          "type": "string",
+          "description": "This will be the token from the login and will decoded."
+        }
+      }
+    },
+    "UpdateTaskRequest": {
+      "type": "object",
+      "required": [
+        "name",
+        "description",
+        "deadLine",
+        "importance",
+        "completion",
+        "owner"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "kerja",
+          "description": "name value will change into kerja and you can update multiple too just like update user."
+        }
+      },
+      "xml": {
+        "name": "User"
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "BackEnd Repository",
+    "url": "https://gitlab.com/ricky546/post-and-user-api"
+  }
+}
