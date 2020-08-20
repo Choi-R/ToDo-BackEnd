@@ -20,7 +20,7 @@
   },
   "homepage": "https://gitlab.com/ricky546/to-do#readme",
   "dependencies": {
-    "bcrypt": "^3.0.8",
+    "bcrypt": "^5.0.0",
     "bcryptjs": "^2.4.3",
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
